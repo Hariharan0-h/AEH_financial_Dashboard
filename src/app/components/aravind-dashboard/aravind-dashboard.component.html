@@ -1,11 +1,11 @@
-<!-- Enhanced aravind-dashboard.component.html -->
-<div class="dashboard-container" [class.portrait]="isPortrait">
+<!-- Redesigned aravind-dashboard.component.html -->
+<div class="dashboard-container">
   <!-- Header -->
   <div class="dashboard-header">
     <div class="header-content">
       <div class="logo-section">
         <div class="logo-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="eye-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="eye-icon">
             <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
           </svg>
         </div>
@@ -21,157 +21,136 @@
     </div>
   </div>
 
-  <!-- Main Dashboard Grid -->
-  <div class="dashboard-grid" [class.portrait-grid]="isPortrait">
-    <!-- Left Column - KPI Cards -->
-    <div class="kpi-column">
-      <!-- Total Revenue -->
-      <div class="kpi-card success clickable" (click)="openKPIModal('totalRevenue')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">Total Revenue</h3>
-            <p class="kpi-subtitle">Today</p>
-          </div>
-          <div class="trend-indicator positive">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 14l5-5 5 5z"/>
-            </svg>
-            <span>{{ kpiData.trends.daily }}%</span>
-          </div>
+  <!-- KPI Cards Row -->
+  <div class="kpi-row">
+    <!-- Total Revenue -->
+    <div class="kpi-card success clickable" (click)="openKPIModal('totalRevenue')">
+      <div class="kpi-header">
+        <div class="kpi-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+          </svg>
         </div>
-        <div class="kpi-value">{{ formatCurrency(kpiData.totalRevenue) }}</div>
-      </div>
-
-      <!-- Total Expenses -->
-      <div class="kpi-card danger clickable" (click)="openKPIModal('totalExpenses')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">Total Expenses</h3>
-            <p class="kpi-subtitle">Today</p>
-          </div>
-          <div class="trend-indicator negative">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 10l5 5 5-5z"/>
-            </svg>
-            <span>2.3%</span>
-          </div>
+        <div class="kpi-info">
+          <h3 class="kpi-title">Total Revenue</h3>
+          <p class="kpi-subtitle">Today</p>
         </div>
-        <div class="kpi-value">{{ formatCurrency(kpiData.totalExpenses) }}</div>
-      </div>
-
-      <!-- Net Operating Income -->
-      <div class="kpi-card info clickable" (click)="openKPIModal('netIncome')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">Net Operating Income</h3>
-            <p class="kpi-subtitle">Monthly</p>
-          </div>
-          <div class="trend-indicator positive">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 14l5-5 5 5z"/>
-            </svg>
-            <span>{{ kpiData.trends.monthly }}%</span>
-          </div>
+        <div class="trend-indicator positive">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 14l5-5 5 5z"/>
+          </svg>
+          <span>{{ kpiData.trends.daily }}%</span>
         </div>
-        <div class="kpi-value">{{ formatCurrency(kpiData.netOperatingIncome) }}</div>
       </div>
-
-      <!-- Avg Revenue Per Patient -->
-      <div class="kpi-card warning clickable" (click)="openKPIModal('avgRevenue')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-6h3v6h2v-6s0-2 2-2h3v8h2V4h5v16h2v-6h3v6H4z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">Avg Revenue/Patient</h3>
-          </div>
-          <div class="trend-indicator positive">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 14l5-5 5 5z"/>
-            </svg>
-            <span>3.8%</span>
-          </div>
-        </div>
-        <div class="kpi-value">₹{{ kpiData.avgRevenuePerPatient | number:'1.0-0' }}</div>
-      </div>
-
-      <!-- Reconciliation Percentage -->
-      <div class="kpi-card success clickable" (click)="openKPIModal('reconciliation')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">Reconciliation %</h3>
-          </div>
-          <div class="trend-indicator positive">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 14l5-5 5 5z"/>
-            </svg>
-            <span>0.2%</span>
-          </div>
-        </div>
-        <div class="kpi-value">{{ kpiData.reconciliationPercentage }}%</div>
-      </div>
-
-      <!-- Cash on Hand -->
-      <div class="kpi-card info clickable" (click)="openKPIModal('cashOnHand')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4V8h-2V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">Cash on Hand</h3>
-          </div>
-        </div>
-        <div class="kpi-value">{{ formatCurrency(kpiData.cashOnHand) }}</div>
-      </div>
-
-      <!-- AR Days -->
-      <div class="kpi-card warning clickable" (click)="openKPIModal('arDays')">
-        <div class="kpi-header">
-          <div class="kpi-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-            </svg>
-          </div>
-          <div class="kpi-info">
-            <h3 class="kpi-title">AR Days</h3>
-          </div>
-          <div class="trend-indicator negative">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 10l5 5 5-5z"/>
-            </svg>
-            <span>1.2%</span>
-          </div>
-        </div>
-        <div class="kpi-value">{{ kpiData.accountReceivableDays }} days</div>
-      </div>
+      <div class="kpi-value">{{ formatCurrency(kpiData.totalRevenue) }}</div>
     </div>
 
-    <!-- Center Column - Main Charts -->
-    <div class="center-column">
+    <!-- Total Expenses -->
+    <div class="kpi-card danger clickable" (click)="openKPIModal('totalExpenses')">
+      <div class="kpi-header">
+        <div class="kpi-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          </svg>
+        </div>
+        <div class="kpi-info">
+          <h3 class="kpi-title">Total Expenses</h3>
+          <p class="kpi-subtitle">Today</p>
+        </div>
+        <div class="trend-indicator negative">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+          <span>2.3%</span>
+        </div>
+      </div>
+      <div class="kpi-value">{{ formatCurrency(kpiData.totalExpenses) }}</div>
+    </div>
+
+    <!-- Net Operating Income -->
+    <div class="kpi-card info clickable" (click)="openKPIModal('netIncome')">
+      <div class="kpi-header">
+        <div class="kpi-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+          </svg>
+        </div>
+        <div class="kpi-info">
+          <h3 class="kpi-title">Net Operating Income</h3>
+          <p class="kpi-subtitle">Monthly</p>
+        </div>
+        <div class="trend-indicator positive">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 14l5-5 5 5z"/>
+          </svg>
+          <span>{{ kpiData.trends.monthly }}%</span>
+        </div>
+      </div>
+      <div class="kpi-value">{{ formatCurrency(kpiData.netOperatingIncome) }}</div>
+    </div>
+
+    <!-- Avg Revenue Per Patient -->
+    <div class="kpi-card warning clickable" (click)="openKPIModal('avgRevenue')">
+      <div class="kpi-header">
+        <div class="kpi-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-6h3v6h2v-6s0-2 2-2h3v8h2V4h5v16h2v-6h3v6H4z"/>
+          </svg>
+        </div>
+        <div class="kpi-info">
+          <h3 class="kpi-title">Avg Revenue/Patient</h3>
+        </div>
+        <div class="trend-indicator positive">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 14l5-5 5 5z"/>
+          </svg>
+          <span>3.8%</span>
+        </div>
+      </div>
+      <div class="kpi-value">₹{{ kpiData.avgRevenuePerPatient | number:'1.0-0' }}</div>
+    </div>
+
+    <!-- Reconciliation Percentage -->
+    <div class="kpi-card success clickable" (click)="openKPIModal('reconciliation')">
+      <div class="kpi-header">
+        <div class="kpi-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+        <div class="kpi-info">
+          <h3 class="kpi-title">Reconciliation %</h3>
+        </div>
+        <div class="trend-indicator positive">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 14l5-5 5 5z"/>
+          </svg>
+          <span>0.2%</span>
+        </div>
+      </div>
+      <div class="kpi-value">{{ kpiData.reconciliationPercentage }}%</div>
+    </div>
+
+    <!-- Cash on Hand -->
+    <div class="kpi-card info clickable" (click)="openKPIModal('cashOnHand')">
+      <div class="kpi-header">
+        <div class="kpi-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4V8h-2V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+          </svg>
+        </div>
+        <div class="kpi-info">
+          <h3 class="kpi-title">Cash on Hand</h3>
+        </div>
+      </div>
+      <div class="kpi-value">{{ formatCurrency(kpiData.cashOnHand) }}</div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="main-content">
+    <!-- Left Column - Charts -->
+    <div class="left-column">
       <!-- Revenue vs Target Chart -->
       <div class="chart-card clickable" (click)="openChartModal('revenue')">
         <div class="chart-header">
@@ -195,13 +174,13 @@
       </div>
     </div>
 
-    <!-- Right Column - Analytics -->
-    <div class="right-column">
+    <!-- Center Column - Analytics -->
+    <div class="center-column">
       <!-- Payment Mode Distribution -->
       <div class="analytics-card">
         <div class="card-header">
           <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
             </svg>
             Payment Modes
@@ -223,7 +202,7 @@
       <div class="analytics-card">
         <div class="card-header">
           <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
             Department Revenue
@@ -241,12 +220,15 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- Right Column -->
+    <div class="right-column">
       <!-- Active Alerts -->
       <div class="analytics-card">
         <div class="card-header">
           <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="alert-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="alert-icon">
               <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
             </svg>
             Active Alerts
@@ -267,7 +249,7 @@
       <div class="analytics-card bank-balance clickable" (click)="openKPIModal('bankBalance')">
         <div class="card-header">
           <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="bank-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="bank-icon">
               <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
             </svg>
             Bank Balance
@@ -276,13 +258,32 @@
         <div class="bank-amount">{{ formatCurrency(kpiData.bankBalance) }}</div>
         <p class="bank-subtitle">Available Balance</p>
       </div>
+
+      <!-- AR Days -->
+      <div class="analytics-card warning clickable" (click)="openKPIModal('arDays')">
+        <div class="card-header">
+          <h3>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+            </svg>
+            AR Days
+          </h3>
+        </div>
+        <div class="kpi-value" style="margin-top: 12px;">{{ kpiData.accountReceivableDays }} days</div>
+        <div class="trend-indicator negative" style="margin-top: 8px;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+          <span>1.2%</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Enhanced Modal Overlay -->
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-  <div class="modal-container" (click)="$event.stopPropagation()" [class.portrait-modal]="isPortrait">
+  <div class="modal-container" (click)="$event.stopPropagation()">
     
     <!-- KPI Modal -->
     <div *ngIf="modalType === 'kpi'" class="modal-content">

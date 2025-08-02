@@ -1,4 +1,4 @@
-// Enhanced aravind-dashboard.component.ts
+// Redesigned aravind-dashboard.component.ts
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
@@ -62,7 +62,6 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
   currentTime: Date = new Date();
   screenHeight: number = window.innerHeight;
   screenWidth: number = window.innerWidth;
-  isPortrait: boolean = window.innerHeight > window.innerWidth;
   
   // Modal state
   showModal: boolean = false;
@@ -76,7 +75,6 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
   onResize(event: any) {
     this.screenHeight = event.target.innerHeight;
     this.screenWidth = event.target.innerWidth;
-    this.isPortrait = this.screenHeight > this.screenWidth;
     
     setTimeout(() => {
       this.destroyCharts();
@@ -109,7 +107,6 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
     { month: 'Jun', revenue: 48900000, expenses: 34500000, target: 45000000 },
   ];
 
-  // Combined Card + Digital as "Digital Payments"
   paymentModeData: PaymentModeData[] = [
     { 
       name: 'Cash', 
@@ -124,9 +121,9 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
       ]
     },
     { 
-      name: 'Digital', // Combined Card + Digital
+      name: 'Digital',
       value: 60, 
-      amount: 27405000, // 19183500 + 8221500
+      amount: 27405000,
       color: '#10b981',
       details: [
         { time: '09:00', amount: 4700000 },
@@ -292,7 +289,6 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   private getKPIDetails(kpiType: string): any {
-    // Implementation remains the same as your original
     switch (kpiType) {
       case 'totalRevenue':
         return {
@@ -313,8 +309,68 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
             'Digital payment adoption increasing',
           ]
         };
+      case 'totalExpenses':
+        return {
+          title: 'Total Expenses Analysis',
+          value: this.kpiData.totalExpenses,
+          trend: -2.3,
+          breakdown: [
+            { label: 'Staff Salaries', value: 18500000, percentage: 57.0 },
+            { label: 'Medical Supplies', value: 7200000, percentage: 22.2 },
+            { label: 'Equipment Maintenance', value: 3100000, percentage: 9.5 },
+            { label: 'Utilities', value: 2150000, percentage: 6.6 },
+            { label: 'Other Operational', value: 1500000, percentage: 4.6 }
+          ],
+          insights: [
+            'Expenses decreased by 2.3% from yesterday',
+            'Staff costs remain the largest expense category',
+            'Medical supply costs optimized through bulk purchasing',
+            'Energy efficiency initiatives reducing utility costs'
+          ]
+        };
+      case 'netIncome':
+        return {
+          title: 'Net Operating Income Analysis',
+          value: this.kpiData.netOperatingIncome,
+          trend: this.kpiData.trends.monthly,
+          breakdown: [
+            { label: 'Gross Revenue', value: 45675000, percentage: 100.0 },
+            { label: 'Operating Expenses', value: -32450000, percentage: -71.0 },
+            { label: 'Net Operating Income', value: 13225000, percentage: 29.0 }
+          ],
+          insights: [
+            'Operating margin improved to 29% this month',
+            'Revenue growth outpacing expense increases',
+            'Efficiency improvements contributing to higher margins',
+            'Strong performance across all service lines'
+          ]
+        };
+      case 'bankBalance':
+        return {
+          title: 'Bank Balance Overview',
+          value: this.kpiData.bankBalance,
+          trend: 2.1,
+          breakdown: [
+            { label: 'Current Account', value: 45000000, percentage: 36.0 },
+            { label: 'Savings Account', value: 35000000, percentage: 28.0 },
+            { label: 'Fixed Deposits', value: 30000000, percentage: 24.0 },
+            { label: 'Investment Account', value: 15000000, percentage: 12.0 }
+          ],
+          insights: [
+            'Strong liquidity position maintained',
+            'Balanced portfolio across account types',
+            'Fixed deposits providing stable returns',
+            'Ready for planned expansion investments'
+          ]
+        };
       default:
-        return { title: 'KPI Details', value: 0, trend: 0, breakdown: [], insights: [] };
+        return { 
+          title: 'KPI Details', 
+          value: 0, 
+          trend: 0, 
+          breakdown: [], 
+          insights: ['No detailed analysis available for this metric'] 
+        };
     }
   }
 
@@ -324,24 +380,26 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
         return {
           title: 'Revenue Trend Analysis',
           insights: [
-            'Revenue shows consistent upward trend',
-            'Target achievement improved in recent months',
-            'Electronic payment adoption increasing',
-            'Operating margin improved by 15% year-over-year'
+            'Revenue shows consistent upward trend over 6 months',
+            'Target achievement improved from 94% to 109%',
+            'Q2 performance exceeded expectations by 8.7%',
+            'Operating margin improved by 15% year-over-year',
+            'Digital payment adoption contributing to efficiency'
           ]
         };
       case 'location':
         return {
           title: 'Location Performance Details',
           insights: [
-            'Madurai leads in both revenue and patient volume',
-            'Chennai shows highest revenue per patient',
-            'Growth rate varies significantly across locations',
-            'Opportunity for expansion in tier-2 cities'
+            'Madurai leads with ₹12.5Cr revenue and 4,850 patients',
+            'Chennai shows highest revenue per patient at ₹2,500',
+            'Growth rate varies from 4.2% to 15.2% across locations',
+            'Tier-2 cities showing strong growth potential',
+            'Coimbatore and Tirunelveli performing above average'
           ]
         };
       default:
-        return { title: 'Chart Analysis', insights: [] };
+        return { title: 'Chart Analysis', insights: ['No detailed analysis available'] };
     }
   }
 
@@ -412,9 +470,9 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
             position: 'top',
             labels: {
               usePointStyle: true,
-              padding: this.isPortrait ? 15 : 20,
+              padding: 20,
               font: {
-                size: this.isPortrait ? 11 : 13,
+                size: 12,
                 weight: 600
               }
             }
@@ -441,7 +499,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
             ticks: {
               callback: (value) => `₹${value}Cr`,
               font: {
-                size: this.isPortrait ? 9 : 11
+                size: 11
               },
               color: '#64748b'
             }
@@ -452,7 +510,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
             },
             ticks: {
               font: {
-                size: this.isPortrait ? 9 : 11,
+                size: 11,
                 weight: 500
               },
               color: '#64748b'
@@ -497,7 +555,6 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        indexAxis: this.isPortrait ? 'x' : 'y',
         plugins: {
           legend: {
             display: false
@@ -514,7 +571,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
               label: (context) => {
                 const location = this.locationRevenueData[context.dataIndex];
                 return [
-                  `Revenue: ₹${context.parsed.y || context.parsed.x}Cr`,
+                  `Revenue: ₹${context.parsed.y}Cr`,
                   `Patients: ${location.patients.toLocaleString()}`,
                   `Growth: ${location.growth}%`
                 ];
@@ -524,26 +581,25 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
         },
         scales: {
           x: {
-            beginAtZero: true,
             grid: {
-              color: 'rgba(148, 163, 184, 0.1)'
+              display: false
             },
             ticks: {
-              callback: (value) => this.isPortrait ? `₹${value}Cr` : value,
               font: {
-                size: this.isPortrait ? 9 : 11
+                size: 11
               },
               color: '#64748b'
             }
           },
           y: {
+            beginAtZero: true,
             grid: {
-              color: this.isPortrait ? 'rgba(148, 163, 184, 0.1)' : 'transparent'
+              color: 'rgba(148, 163, 184, 0.1)'
             },
             ticks: {
-              callback: (value) => this.isPortrait ? value : `₹${value}Cr`,
+              callback: (value) => `₹${value}Cr`,
               font: {
-                size: this.isPortrait ? 9 : 11
+                size: 11
               },
               color: '#64748b'
             }
