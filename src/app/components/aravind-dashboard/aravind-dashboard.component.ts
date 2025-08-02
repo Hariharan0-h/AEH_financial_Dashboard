@@ -221,7 +221,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
 
   formatCurrency(value: number): string {
     if (value >= 10000000) {
-      return `₹${(value / 10000000).toFixed(1)}Cr`;
+      return `₹${(value / 10000000).toFixed(1)} Cr`;
     } else if (value >= 100000) {
       return `₹${(value / 100000).toFixed(1)}L`;
     } else {
@@ -231,7 +231,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
 
   formatAmount(value: number): string {
     if (value >= 10000000) {
-      return `₹${(value / 10000000).toFixed(2)}Cr`;
+      return `₹${(value / 10000000).toFixed(2)} Cr`;
     } else if (value >= 100000) {
       return `₹${(value / 100000).toFixed(2)}L`;
     } else {
@@ -391,7 +391,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
         return {
           title: 'Location Performance Details',
           insights: [
-            'Madurai leads with ₹12.5Cr revenue and 4,850 patients',
+            'Madurai leads with ₹12.5 Cr revenue and 4,850 patients',
             'Chennai shows highest revenue per patient at ₹2,500',
             'Growth rate varies from 4.2% to 15.2% across locations',
             'Tier-2 cities showing strong growth potential',
@@ -486,7 +486,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
             cornerRadius: 8,
             padding: 12,
             callbacks: {
-              label: (context) => `${context.dataset.label}: ₹${context.parsed.y}Cr`
+              label: (context) => `${context.dataset.label}: ₹${context.parsed.y} Cr`
             }
           }
         },
@@ -497,7 +497,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
               color: 'rgba(148, 163, 184, 0.1)'
             },
             ticks: {
-              callback: (value) => `₹${value}Cr`,
+              callback: (value) => `₹${value} Cr`,
               font: {
                 size: 11
               },
@@ -571,7 +571,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
               label: (context) => {
                 const location = this.locationRevenueData[context.dataIndex];
                 return [
-                  `Revenue: ₹${context.parsed.y}Cr`,
+                  `Revenue: ₹${context.parsed.y} Cr`,
                   `Patients: ${location.patients.toLocaleString()}`,
                   `Growth: ${location.growth}%`
                 ];
@@ -597,7 +597,7 @@ export class AravindDashboardComponent implements OnInit, AfterViewInit, OnDestr
               color: 'rgba(148, 163, 184, 0.1)'
             },
             ticks: {
-              callback: (value) => `₹${value}Cr`,
+              callback: (value) => `₹${value} Cr`,
               font: {
                 size: 11
               },
